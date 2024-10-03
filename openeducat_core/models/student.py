@@ -30,11 +30,11 @@ class OpStudentCourse(models.Model):
     _rec_name = 'student_id'
 
     student_id = fields.Many2one('op.student', 'Student',
-                                 ondelete="cascade", tracking=True)
-    course_id = fields.Many2one('op.course', 'Course', required=True, tracking=True)
-    batch_id = fields.Many2one('op.batch', 'Batch', required=True, tracking=True)
-    roll_number = fields.Char('Roll Number', tracking=True)
-    subject_ids = fields.Many2many('op.subject', string='Subjects')
+                                 ondelete="cascade", index=True)
+    course_id = fields.Many2one('op.course', 'Course', required=True, index=True)
+    batch_id = fields.Many2one('op.batch', 'Batch', required=True, index=True)
+    roll_number = fields.Char('Roll Number')
+    subject_ids = fields.Many2many('op.subject', string='Subjects', index=True)
     academic_years_id = fields.Many2one('op.academic.year', 'Academic Year')
     academic_term_id = fields.Many2one('op.academic.term', 'Terms')
     state = fields.Selection([('running', 'Running'),
@@ -93,11 +93,11 @@ class OpStudent(models.Model):
     partner_id = fields.Many2one('res.partner', 'Partner',
                                  required=True, ondelete="cascade")
     user_id = fields.Many2one('res.users', 'User', ondelete="cascade")
-    gr_no = fields.Char("GR Number", size=20)
+    gr_no = fields.Char("GR Number", size=20, index=True)
     category_id = fields.Many2one('op.category', 'Category')
     course_detail_ids = fields.One2many('op.student.course', 'student_id',
                                         'Course Details',
-                                        tracking=True)
+                                         index=True)
     active = fields.Boolean(default=True)
 
     _sql_constraints = [(
