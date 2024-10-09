@@ -21,7 +21,7 @@
 
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
-
+_logger = logging.getLogger(__name__)
 
 class OpStudentCourse(models.Model):
     _name = "op.student.course"
@@ -171,7 +171,6 @@ class OpStudent(models.Model):
                 'tz': self._context.get('tz'),
                 'oauth_uid': record.email if record.email else False,
                 'oauth_provider_id': self.env['auth.oauth.provider'].search([('name', '=', 'Azure AD Single Tenant')], limit=1).id if self.env['auth.oauth.provider'].search([('name', '=', 'Azure AD Single Tenant')], limit=1) else False,
-
             })
 
                 
