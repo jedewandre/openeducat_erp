@@ -202,11 +202,13 @@ class OpStudent(models.Model):
                             # If an existing user is found, unlink (delete) it
                             if existing_user:
                                 _logger.warning(f"User Alreay Exsist: {user_values}")
-                                new_users.append(existing_user)
+                                record.user_id = existing_user.id
                             else :
                                 # Now create the new user
                                 new_user = users_res.create(user_values)
                                 new_users.append(new_user)
+                            
+                                record.user_id = new_user.id
                 
 
 
@@ -219,7 +221,7 @@ class OpStudent(models.Model):
                         
 
             # Assign the newly created user_ids back to the respective records
-            for record, user_id in zip(records_without_user, new_users):
-                record.user_id = user_id
+            #for record, user_id in zip(records_without_user, new_users):
+            #    record.user_id = user_id
 
 
